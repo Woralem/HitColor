@@ -4,11 +4,11 @@ license = "MIT"
 
 [[mods]]
 modId = "hitcolor"
-version = "1.0.0"
+version = "1.2.5"
 displayName = "HitColor"
-displayURL = "https://t.me/ilovegamburger"
+displayURL = "TG: https://t.me/ilovegamburger FunPay: alex032russ"
 authors = "alex032russ"
-description = '''Mod that allows you to change the hit color.'''
+description = '''Мод меняет цвет получения урона, на цвет который хочет пользователь, используя HEX коды цветов. Например: #FFFFFF'''
 
 [[dependencies.hitcolor]]
 modId = "forge"
