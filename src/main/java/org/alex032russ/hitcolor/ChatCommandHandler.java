@@ -10,12 +10,8 @@ public class ChatCommandHandler {
 
     @SubscribeEvent
     public static void onClientChat(ClientChatEvent event) {
-        // Проверяем, начинается ли сообщение с .hit
         if (event.getMessage().startsWith(".hit")) {
-            // Отменяем отправку сообщения на сервер
             event.setCanceled(true);
-
-            // Открываем меню мода
             HitcolorMod.openConfigScreen();
         }
     }

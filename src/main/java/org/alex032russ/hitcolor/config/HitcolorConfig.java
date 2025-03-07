@@ -2,8 +2,6 @@ package org.alex032russ.hitcolor.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
-import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.renderer.texture.NativeImage;
 
 import java.awt.*;
 
@@ -51,18 +49,14 @@ public class HitcolorConfig {
             rgbColor = Color.decode(CONFIG.colorHex.get());
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            processedColor = -1308622593; // Default color if parsing fails
+            processedColor = -1308622593;
             return;
         }
-
-        // Format: ARGB (alpha, red, green, blue)
         int alpha = (int)(Math.round(0xFF * (1 - CONFIG.alpha.get() / 100.0)));
         processedColor = rgbColor.getRed() | rgbColor.getGreen() << 8 | rgbColor.getBlue() << 16 | alpha << 24;
     }
 
     public static void updateHitcolor() {
-        // В 1.16.5 обновление происходит через миксин при следующем рендеринге
-        // Метод оставлен для совместимости с другими классами
         org.alex032russ.hitcolor.HitcolorMod.needsOverlayTextureUpdate = true;
     }
 }

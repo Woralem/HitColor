@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[36,)" # для Forge 1.16.5
+loaderVersion = "[36,)"
 license = "MIT"
 
 [[mods]]

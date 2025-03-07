@@ -47,7 +47,6 @@ public class HitcolorMod {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        // Client setup code
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -78,13 +77,11 @@ public class HitcolorMod {
         @SubscribeEvent
         public static void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
             if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-                // Отмечаем, что текстура должна быть обновлена
                 needsOverlayTextureUpdate = true;
             }
         }
 
         private void clientSetup(final FMLClientSetupEvent event) {
-            // Инициализируем привязку клавиш
             KeyBindings.init(event);
         }
     }

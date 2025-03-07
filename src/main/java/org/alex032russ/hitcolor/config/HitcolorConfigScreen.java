@@ -24,8 +24,6 @@ public class HitcolorConfigScreen extends Screen {
         super.init();
 
         this.minecraft = Minecraft.getInstance();
-
-        // Текстовое поле для ввода цвета в формате #RRGGBB
         this.colorField = new TextFieldWidget(
                 this.font,
                 this.width / 2 - 100, 50,
@@ -35,8 +33,6 @@ public class HitcolorConfigScreen extends Screen {
         this.colorField.setMaxLength(7); // #RRGGBB
         this.colorField.setValue(HitcolorConfig.CONFIG.colorHex.get());
         this.children.add(this.colorField);
-
-        // Слайдер для настройки прозрачности
         this.alphaSlider = new CustomSlider(
                 this.width / 2 - 100, 90,
                 200, 20,
@@ -46,8 +42,6 @@ public class HitcolorConfigScreen extends Screen {
                 HitcolorConfig.CONFIG.alpha.get()
         );
         this.addButton(this.alphaSlider);
-
-        // Кнопки сохранения и отмены
         this.saveButton = this.addButton(new Button(
                 this.width / 2 - 102, this.height - 40,
                 100, 20,
@@ -70,28 +64,22 @@ public class HitcolorConfigScreen extends Screen {
     private void save() {
         if (validateInputs()) {
             saveSettings();
-            this.minecraft.setScreen(null); // Правильное имя в 1.16.5
+            this.minecraft.setScreen(null);
         }
     }
 
     private boolean validateInputs() {
-        // Проверка цвета
         String color = this.colorField.getValue();
         if (!color.startsWith("#") || color.length() != 7) {
-            // Неверный формат цвета
             this.colorField.setValue(color);
             return false;
         }
 
         try {
-            // Пытаемся распарсить цвет
             Color.decode(color);
         } catch (NumberFormatException e) {
-            // Неверный формат цвета
             return false;
         }
-
-        // Если все в порядке, возвращаем true
         return true;
     }
 
@@ -99,21 +87,14 @@ public class HitcolorConfigScreen extends Screen {
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-
-        // Рендерим метки
         drawCenteredString(matrixStack, this.font, "Hitcolor Configuration", this.width / 2, 15, 0xFFFFFF);
         drawString(matrixStack, this.font, "Color (hex format, e.g. #ff0000):", this.width / 2 - 100, 40, 0xFFFFFF);
-
-        // Рендерим образец цвета
         try {
             Color color = Color.decode(this.colorField.getValue());
             int alpha = (int) (255 * (1 - this.alphaSlider.getValue() / 100));
             fill(matrixStack, this.width / 2 + 120, 50, this.width / 2 + 150, 70, alpha << 24 | color.getRGB() & 0xFFFFFF);
         } catch (NumberFormatException e) {
-            // Ничего не делаем, просто не рендерим образец
         }
-
-        // Рендерим текстовое поле (оно не рендерится автоматически)
         this.colorField.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
@@ -142,8 +123,6 @@ public class HitcolorConfigScreen extends Screen {
     private void saveSettings() {
         org.alex032russ.hitcolor.config.HitcolorConfig.CONFIG.colorHex.set(this.colorField.getValue());
         org.alex032russ.hitcolor.config.HitcolorConfig.CONFIG.alpha.set(this.alphaSlider.getValue());
-
-        // Обновляем цвет и текстуру
         org.alex032russ.hitcolor.config.HitcolorConfig.updateColor();
         org.alex032russ.hitcolor.config.HitcolorConfig.updateHitcolor();
     }
