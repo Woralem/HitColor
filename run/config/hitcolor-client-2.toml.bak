@@ -1,0 +1,9 @@
+
+#Hitcolor Configuration
+[general]
+	#Hit color in hex format
+	color = "#ffFFF0"
+	#Transparency (0-100, where 0 is fully opaque and 100 is fully transparent)
+	#Range: 0.0 ~ 100.0
+	alpha = +inf
+

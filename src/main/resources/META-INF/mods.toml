@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[36,)" # для Forge 1.16.5
+license = "MIT"
+
+[[mods]]
+modId = "hitcolor"
+version = "1.0.0"
+displayName = "HitColor"
+displayURL = "https://t.me/ilovegamburger"
+authors = "alex032russ"
+description = '''Mod that allows you to change the hit color.'''
+
+[[dependencies.hitcolor]]
+modId = "forge"
+mandatory = true
+versionRange = "[36.2.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hitcolor]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.5,1.17)"
+ordering = "NONE"
+side = "BOTH"
+
+[mixin]
+config = "hitcolor.mixins.json"

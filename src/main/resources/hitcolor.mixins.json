@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.alex032russ.hitcolor.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "hitcolor.refmap.json",
+  "mixins": [
+    "OverlayTextureMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
