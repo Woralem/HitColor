@@ -1,7 +1,7 @@
 package org.alex032russ.hitcolor.config;
 
 import net.minecraft.client.gui.widget.AbstractSlider;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.StringTextComponent;
 
 public class CustomSlider extends AbstractSlider {
@@ -9,31 +9,55 @@ public class CustomSlider extends AbstractSlider {
     private final String suffix;
     private final double minValue;
     private final double maxValue;
-    private double value;
+
+    // Реальное значение слайдера в диапазоне [minValue, maxValue]
+    private double sliderValue;
 
     public CustomSlider(int x, int y, int width, int height, String prefix, String suffix,
                         double minValue, double maxValue, double defaultValue) {
-        super(x, y, width, height, new StringTextComponent(""), defaultValue / (maxValue - minValue));
+        super(x, y, width, height, new StringTextComponent(""), 0.0);
+
         this.prefix = prefix;
         this.suffix = suffix;
         this.minValue = minValue;
         this.maxValue = maxValue;
-        this.value = defaultValue;
+
+        // Устанавливаем начальное значение, убедившись, что оно находится в правильном диапазоне
+        this.sliderValue = MathHelper.clamp(defaultValue, minValue, maxValue);
+
+        // Устанавливаем позицию ползунка в соответствии с нормализованным значением
+        this.value = (sliderValue - minValue) / (maxValue - minValue);
+
         updateMessage();
     }
 
     @Override
     protected void updateMessage() {
-        setMessage(new StringTextComponent(prefix + Math.round(value * 10) / 10.0 + suffix));
+        // Форматируем значение с одним десятичным знаком
+        String formattedValue = String.format("%.1f", sliderValue);
+        setMessage(new StringTextComponent(prefix + formattedValue + suffix));
     }
 
     @Override
     protected void applyValue() {
-        value = minValue + (maxValue - minValue) * this.value;
+        // Когда пользователь двигает слайдер, this.value изменяется от 0.0 до 1.0
+        // Преобразуем это обратно в диапазон [minValue, maxValue]
+        this.sliderValue = minValue + (maxValue - minValue) * this.value;
+
+        // Округляем до одного десятичного знака
+        this.sliderValue = Math.round(this.sliderValue * 10) / 10.0;
+
         updateMessage();
     }
 
     public double getValue() {
-        return value;
+        return this.sliderValue;
+    }
+
+    // Явно устанавливаем значение
+    public void setValue(double newValue) {
+        this.sliderValue = MathHelper.clamp(newValue, minValue, maxValue);
+        this.value = (sliderValue - minValue) / (maxValue - minValue);
+        updateMessage();
     }
 }
