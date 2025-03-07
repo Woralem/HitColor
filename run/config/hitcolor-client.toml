@@ -5,5 +5,5 @@
 	color = "#C71585"
 	#Transparency (0-100, where 0 is fully opaque and 100 is fully transparent)
 	#Range: 0.0 ~ 100.0
-	alpha = 35.9
+	alpha = 100.0
 

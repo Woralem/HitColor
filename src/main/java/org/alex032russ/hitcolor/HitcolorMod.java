@@ -82,6 +82,11 @@ public class HitcolorMod {
                 needsOverlayTextureUpdate = true;
             }
         }
+
+        private void clientSetup(final FMLClientSetupEvent event) {
+            // Инициализируем привязку клавиш
+            KeyBindings.init(event);
+        }
     }
 
     public static void openConfigScreen() {
